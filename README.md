@@ -16,6 +16,14 @@ GhostLedger keeps everyday spending in `data/ledger.csv` on your machine. You ca
 
 Amounts are stored as integer paise (₹1.00 is `100`). There are no npm packages to install; it uses the Node.js standard library only.
 
+## Demo video
+
+<p align="center">
+  <a href="https://youtu.be/e6PdNCmWoQI"><img src="https://img.youtube.com/vi/e6PdNCmWoQI/maxresdefault.jpg" alt="Demo video: GhostLedger parsing a UPI SMS and updating the local ledger" width="480"></a>
+</p>
+
+A 2-minute walkthrough of the terminal UI, the local API and the web dashboard.
+
 ## Screenshots
 
 Captured from a fresh clone running on Node 24, with `npm run seed` and the commands shown.
