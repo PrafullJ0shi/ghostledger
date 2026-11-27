@@ -16,6 +16,14 @@ GhostLedger keeps everyday spending in `data/ledger.csv` on your machine. You ca
 
 Amounts are stored as integer paise (₹1.00 is `100`). There are no npm packages to install; it uses the Node.js standard library only.
 
+## Screenshots
+
+Captured from a fresh clone running on Node 24, with `npm run seed` and the commands shown.
+
+| Terminal UI | Local API | Web page |
+|---|---|---|
+| ![Terminal UI parsing a UPI SMS](docs/screenshots/tui.png) | ![curl calls against the local API](docs/screenshots/api.png) | ![Dashboard listing ledger rows](docs/screenshots/web.png) |
+
 ## Why I built it
 
 I started this as my entry for [Kiroween 2026](https://kiroween.devpost.com/), in the Frankenstein category, which asks you to stitch unlike tools into one project. The practical problem is one I actually have: UPI messages and paper receipt text pile up in my notifications, and I did not want another cloud budgeting app. A plain CSV I can open in a spreadsheet, a keyboard UI I can query with `/week`, and a local page that reads the same file, felt like the right mashup.
