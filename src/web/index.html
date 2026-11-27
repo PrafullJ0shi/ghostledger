@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8"/>
+<title>GhostLedger</title>
+<style>
+  :root { color-scheme: dark; --bg:#0b0d10; --card:#151a21; --ink:#e8eef7; --muted:#8b9bb4; --accent:#7cf0c3; --warn:#ff6b8a; }
+  * { box-sizing: border-box; }
+  body { margin:0; font: 15px/1.45 ui-sans-serif, system-ui; background: radial-gradient(1200px 600px at 10% -10%, #1a2433, var(--bg)); color: var(--ink); min-height:100vh; }
+  header { padding: 28px 32px 8px; display:flex; justify-content:space-between; align-items:end; }
+  h1 { margin:0; letter-spacing:.04em; font-size:28px; } h1 span { color:var(--accent); }
+  .sub { color:var(--muted); }
+  main { padding: 16px 32px 48px; display:grid; gap:16px; grid-template-columns: 1.2fr .8fr; }
+  .card { background:var(--card); border:1px solid #243041; border-radius:14px; padding:16px 18px; box-shadow: 0 10px 40px rgba(0,0,0,.35); }
+  table { width:100%; border-collapse:collapse; } td,th { text-align:left; padding:8px 6px; border-bottom:1px solid #243041; }
+  th { color:var(--muted); font-weight:600; font-size:12px; text-transform:uppercase; letter-spacing:.06em; }
+  .amt { font-variant-numeric: tabular-nums; color:var(--accent); }
+  textarea,input,button { width:100%; margin:6px 0; padding:10px 12px; border-radius:10px; border:1px solid #314257; background:#0f141c; color:var(--ink); }
+  button { background:linear-gradient(180deg,#2a9b73,#1e7a59); border:none; font-weight:600; cursor:pointer; }
+  .week { font-size:32px; color:var(--accent); margin:8px 0 0; }
+  @media (max-width:860px){ main{grid-template-columns:1fr;} }
+</style>
+<header>
+  <div><h1>Ghost<span>Ledger</span></h1><div class="sub">local CSV ghost · Kiroween Frankenstein</div></div>
+  <div class="sub" id="status">connecting…</div>
+</header>
+<main>
+  <section class="card">
+    <h2>Recent</h2>
+    <table><thead><tr><th>Date</th><th>Merchant</th><th>Category</th><th>Amount</th></tr></thead><tbody id="rows"></tbody></table>
+  </section>
+  <section>
+    <div class="card">
+      <h2>Last 7 days</h2>
+      <div class="week" id="week">—</div>
+    </div>
+    <div class="card" style="margin-top:16px">
+      <h2>Paste UPI / receipt text</h2>
+      <textarea id="txt" rows="5" placeholder="Paid Rs.156.75 to Kirana Store via UPI"></textarea>
+      <button id="go">Parse &amp; add</button>
+      <div class="sub" id="msg"></div>
+    </div>
+  </section>
+</main>
+<script>
+const API='http://127.0.0.1:3847';
+async function refresh(){
+  try{
+    const [e,w]=await Promise.all([fetch(API+'/expenses').then(r=>r.json()), fetch(API+'/week').then(r=>r.json())]);
+    document.getElementById('status').textContent='api online';
+    document.getElementById('week').textContent='₹'+(w.amount_paise/100).toFixed(2);
+    document.getElementById('rows').innerHTML=e.rows.slice().reverse().slice(0,20).map(r=>`<tr><td>${r.ts.slice(0,10)}</td><td>${r.merchant}</td><td>${r.category}</td><td class="amt">₹${(r.amount_paise/100).toFixed(2)}</td></tr>`).join('');
+  }catch(err){ document.getElementById('status').textContent='start npm run api'; }
+}
+document.getElementById('go').onclick=async()=>{
+  const text=document.getElementById('txt').value;
+  const res=await fetch(API+'/parse',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({text})});
+  const j=await res.json();
+  document.getElementById('msg').textContent=res.ok?`added ${j.merchant}`: (j.error||'failed');
+  if(res.ok){ document.getElementById('txt').value=''; refresh(); }
+};
+refresh(); setInterval(refresh,4000);
+</script>

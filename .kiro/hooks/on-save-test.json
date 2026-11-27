@@ -1,0 +1,7 @@
+{
+  "name": "run-tests-on-save",
+  "description": "Run node tests when server files change",
+  "when": "fileSaved",
+  "pattern": "src/server/**/*.js",
+  "command": "npm test"
+}
