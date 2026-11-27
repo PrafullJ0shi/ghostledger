@@ -180,6 +180,8 @@ CHANGELOG.md
 
 - Text only. There is no photo OCR yet, even though that is the obvious next step for paper receipts.
 - The parser is a small regex. It misses lines with no rupee marker, and it can swallow trailing words, as in `Metro via UPI` above.
+- Amounts with a thousands separator are misread: `INR 1,200.00` is parsed as ₹1.00.
+- Credit messages are not told apart from debits, so a "credited" SMS would be stored as spending.
 - `/week` is the last 168 hours from the moment you ask, not "the last seven calendar days".
 - Amounts and the UI assume Indian rupees.
 - The ledger is one local file. There is no account, no sync and no encryption beyond whatever your disk already has.
