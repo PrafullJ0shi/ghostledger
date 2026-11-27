@@ -2,7 +2,7 @@
 
 **Category:** Frankenstein (stitch incompatible pieces) + apply for **Best Student Project: Frankenstein ($1,500)**
 **Deadline:** Fri 5 Dec 2026, 03:30 IST (Dec 4, 2:00 PM PST)
-**Entrant:** Prafull Joshi (student: BITS Pilani B.Sc. DS&AI) — India is allowed (not on the excluded list)
+**Entrant:** Prafull Joshi
 **Team:** solo (up to 3 allowed)
 
 ## Idea
@@ -25,13 +25,6 @@ Why Frankenstein: OCR + CSV ledger + TUI + local web API + optional LLM categori
 
 ## Kiro IDE usage
 Official rules require the project to **use Kiro** (IDE, CLI, Web, and/or Kiro Crew). The `/.kiro` folder must be present. Starter code here is scaffolded on the box; the real build/polish must happen inside Kiro so the folder and write-up are honest. Install Kiro from https://kiro.dev and open this folder.
-
-## Student bonus fields (Devpost)
-- LinkedIn profile URL
-- Student email (BITS)
-- Year and degree: 1st year, B.Sc. Data Science and AI
-- School: BITS Pilani
-- They may ask for proof of enrollment
 
 ## Build plan (remaining nights)
 1. Finish CSV ledger + REST API (Node, no DB)
