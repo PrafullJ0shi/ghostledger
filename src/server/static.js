@@ -1,7 +1,9 @@
 import http from 'node:http';
 import fs from 'node:fs';
 import path from 'node:path';
-const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname), '../web');
+import { fileURLToPath } from 'node:url';
+
+const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../web');
 const PORT = Number(process.env.WEB_PORT || 3848);
 http.createServer((req, res) => {
   const file = path.join(ROOT, req.url === '/' ? 'index.html' : req.url.replace(/^\//,''));
